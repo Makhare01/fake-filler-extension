@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "Contractica-regular";
+  src: url("assets/fonts/TBCContractica-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Contractica-medium";
+  src: url("assets/fonts/TBCContractica-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Contractica-bold";
+  src: url("assets/fonts/TBCContractica-Bold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");

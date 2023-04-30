@@ -1,17 +1,31 @@
 import { MessagePassingActions } from "../message";
+import { Messages } from "../messages";
+import { getRandomEmail } from "../utils/input";
 
-chrome.runtime.onMessage.addListener((msg, _, sendResponse) => {
-  if (msg.action === MessagePassingActions.fill) {
-    const inputs = document.querySelectorAll('input')
-    console.log(inputs.entries)
-    console.log(inputs.values)
-    console.log(inputs.item)
-    
-    for(let i = 0; i< inputs.length; i++) {
-      i === 0 ? inputs[i].value = `ჯამბულ` : inputs[i].value = `გაზაევ`
-    }
-    return;
+export const randomEmail = getRandomEmail();
+
+export type Message = {
+  action: MessagePassingActions;
+  payload: any;
+};
+
+type MessageHandler = (
+  message: Message,
+  sender: chrome.runtime.MessageSender,
+  callback: <T>(response?: T) => void
+) => void;
+
+const OnMessageHandler: MessageHandler = async (
+  { action, payload },
+  _,
+  callback
+) => {
+  try {
+    const result = await Messages[action]?.(payload);
+    callback(result);
+  } catch (error) {
+    callback(error);
   }
+};
 
-  return true;
-});
+chrome.runtime.onMessage.addListener(OnMessageHandler);
